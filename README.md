@@ -12,7 +12,7 @@ myname
 For now I do not support TLS encrypted clients. PRs are welcome... :)
 
 ```
-$ docker run -ti --rm --name myname -e DOCKER_HOST=tcp://172.42.0.1:2376 \
+$ docker run -ti --rm --name myname -e DOCKER_HOST=tcp://172.17.0.1:2376 \
                  qnib/alpn-consul /usr/local/bin/go-getmyname
 myname
 ```

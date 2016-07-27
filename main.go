@@ -27,7 +27,7 @@ func getContainerID() (string) {
     for scanner.Scan() {
         line := scanner.Text()
         parts := strings.Split(line,":")
-        if (len(parts) == 3) && (parts[1] == "cpu") {
+        if (len(parts) == 3) && (parts[1] == "cpuset") {
           return strings.Split(parts[2],"/")[2]
         }
     }

@@ -41,7 +41,11 @@ func getContainerName(cId string) (string) {
   if _, err := os.Stat("/var/run/docker.sock"); err == nil {
     cli, err = client.NewClient("unix:///var/run/docker.sock", "v1.22", nil, defaultHeaders)
   } else {
-    cli, err = client.NewEnvClient()
+    dHost := os.Getenv("DOCKER_HOST")
+    if ! strings.HasPrefix(dHost, "tcp://") {
+      dHost = fmt.Sprintf("tcp://%s", dHost)
+    }
+    cli, err = client.NewClient(dHost, "v1.22", nil, defaultHeaders)
   }
   if err != nil {
     panic(err)
@@ -60,6 +64,8 @@ func getContainerName(cId string) (string) {
 
 func main() {
   cId := getContainerID()
+  //fmt.Printf("cId:\t%s\n",cId)
   cName := getContainerName(cId)
   fmt.Println(cName)
+
 }
